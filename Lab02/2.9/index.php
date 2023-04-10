@@ -39,6 +39,12 @@
             box-sizing: border-box;
         }
 
+        .gender-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 0.5fr);
+            margin-bottom: 18px;
+        }
+
         .hobbies-interests-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -80,6 +86,12 @@
         <form action="process.php" method="POST">
             <label for="name", style="font-weight: bold">Name:</label>
             <input type="text" id="name" name="name" required>
+
+            <div class="gender-grid">
+                <label for="gender" style="font-weight: bold">Gender:</label>
+                <label for="male"><input type="radio" id="male" name="gender" value="Male" required>Male</label>
+                <label for="female"><input type="radio" id="female" name="gender" value="Female">Female</label>
+            </div>
 
             <label for="studentID", style="font-weight: bold">Student ID:</label>
             <input type="text" id="studentID" name="studentID" required pattern="[0-9]+" title="Please enter your student ID">
