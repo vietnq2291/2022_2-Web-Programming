@@ -18,6 +18,7 @@
     <body>
         <?php
             $name = $_POST['name'];
+            $gender = $_POST['gender'];
             $studentID = $_POST['studentID'];
             $university = $_POST['university'];
             $class = $_POST['class'];
@@ -32,7 +33,8 @@
             echo "<h2><strong>Here is the information you entered:</strong></h2>";
 
             echo "<ul>";
-            echo "<li><p><strong>Name:</strong> $name</p>";
+                echo "<li><p><strong>Name:</strong> $name</p>";
+                echo "<li><p><strong>Gender:</strong> $gender</p>";
                 echo "<li><p><strong>Student ID:</strong> $studentID</p>";
                 echo "<li><p><strong>University:</strong> $university</p>";
                 echo "<li><p><strong>Class:</strong> $class</p>";
