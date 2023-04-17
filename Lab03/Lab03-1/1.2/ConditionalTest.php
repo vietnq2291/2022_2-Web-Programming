@@ -1,4 +1,4 @@
-<<html>
+<html>
     <head>
         <title>Conditional Test - Reply</title>
     </head>
