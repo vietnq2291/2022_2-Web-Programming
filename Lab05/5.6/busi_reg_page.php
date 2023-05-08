@@ -12,7 +12,7 @@
     function get_categories() {
         $server = "localhost";
         $user = "root";
-        $pass = "";
+        $pass = "123456";
         $mydb = "business_service";
         $table = "Categories";
 
