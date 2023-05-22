@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>step 7</title>
+
+    <script type="text/javascript">
+        function validatePostalCode() {
+            var postalCodeCheck = new RegExp("([A-Z][0-9]){3,3}");
+            var postalCode = document.getElementById("myForm").postalCodeField.value;
+
+            if (postalCodeCheck.test(postalCode)) {
+                alert('Valid postal code!');
+                return true;
+            } else {
+                alert('Invalid postal code: ' + postalCode);
+                return false;
+            }
+        }
+
+        function validateMoney() {
+            var moneyCheck = new RegExp("([0-9]*[\.][0-9][0-9]*)");
+            var money = document.getElementById("myForm").moneyField.value;
+
+            if (moneyCheck.test(money)) {
+                alert('Valid money!');
+                return true;
+            } else {
+                alert('Invalid money: ' + money);
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <form id="myForm">
+        Postal Code:
+        <input type="text" name="postalCodeField">
+        <input type="button" value="Check Postal Code" onclick="validatePostalCode()">
+
+        <br>
+
+        Money: $
+        <input type="text" name="moneyField">
+        <input type="button" value="Check Money" onclick="validateMoney()">
+    </form>
+
+</body>
+
+</html>

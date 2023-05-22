@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product Search</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #searchForm {
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container label {
+            margin-right: 10px;
+        }
+
+        #tableContainer {
+            margin-top: 20px;
+        }
+
+        #tableContainer table {
+            border-collapse: collapse;
+        }
+
+        #tableContainer th,
+        #tableContainer td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #tableContainer tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #tableContainer th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .suggestions-container {
+            position: relative;
+        }
+
+        .suggestions-list {
+            position: absolute;
+            z-index: 1;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 1px solid #ccc;
+            background-color: white;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .suggestions-list li {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .suggestions-list li:hover {
+            background-color: #eee;
+        }
+    </style>
+
+    <script>
+        // Get the HTTP Object
+        function getHTTPObject() {
+            if (window.ActiveXObject) {
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            else if (window.XMLHttpRequest) {
+                return new XMLHttpRequest();
+            }
+            else {
+                alert("Your browser does not support AJAX.");
+                return null;
+            }
+        }
+
+        function doWork() {
+            httpObject = getHTTPObject();
+            if (httpObject != null) {
+                httpObject.open("GET",
+                    "display_product.php?inputText="
+                    + document.getElementById(
+                        'inputText').value, true);
+                httpObject.send(null);
+                httpObject.onreadystatechange = setOutput;
+            }
+        }
+
+        function setOutput() {
+            if (httpObject.readyState == 4) {
+                // set output text as uppercas of input
+                document.getElementById('tableContainer').innerHTML = httpObject.responseText;
+
+            }
+        }
+
+        function showSuggestions() {
+            httpObject = getHTTPObject();
+            if (httpObject != null) {
+                httpObject.open("GET", "show_suggestions.php?inputText=" + document.getElementById('inputText').value, true);
+                httpObject.send(null);
+                httpObject.onreadystatechange = setSuggestions;
+            }
+        }
+
+        function setSuggestions() {
+            if (httpObject.readyState == 4) {
+                var suggestions = JSON.parse(httpObject.responseText);
+                var suggestionsList = document.getElementById('suggestionsList');
+                suggestionsList.innerHTML = '';
+                for (var i = 0; i < suggestions.length; i++) {
+                    var li = document.createElement('li');
+                    li.textContent = suggestions[i];
+                    li.addEventListener('click', function (event) {
+                        document.getElementById('inputText').value = event.target.textContent;
+                        doWork();
+                    });
+                    suggestionsList.appendChild(li);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Product Search</h1>
+    <form name="searchForm" id="searchForm" method="get" action="#">
+        <div class="input-container">
+            <label for="inputText">Input text:</label>
+            <div class="suggestions-container">
+                <input type="text" name="inputText" id="inputText" />
+                <ul id="suggestionsList" class="suggestions-list"></ul>
+            </div>
+        </div>
+    </form>
+
+    <div id="tableContainer"></div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+        });
+
+        document.getElementById('inputText').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                doWork();
+                document.getElementById('suggestionsList').innerHTML = '';
+            } else {
+                showSuggestions();
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.suggestions-container')) {
+                document.getElementById('suggestionsList').innerHTML = '';
+            }
+        });
+    </script>
+</body>
+
+</html>

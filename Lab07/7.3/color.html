@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colors</title>
+    <style>
+        body {
+            font-size: 24px;
+        }
+        #color-text {
+            color: black;
+        }
+        a {
+            margin-right: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        #red:hover ~ #color-text {
+            color: red;
+        }
+        #green:hover ~ #color-text {
+            color: green;
+        }
+        #blue:hover ~ #color-text {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" id="red">RED</a>
+    <a href="#" id="green">GREEN</a>
+    <a href="#" id="blue">BLUE</a>
+    <p id="color-text">This is some sample text.</p>
+</body>
+<script>
+    var colorText = document.getElementById("color-text");
+    var redLink = document.getElementById("red");
+    var greenLink = document.getElementById("green");
+    var blueLink = document.getElementById("blue");
+
+    redLink.onmouseover = function() {
+        colorText.style.color = "red";
+    }
+    redLink.onmouseout = function() {
+        colorText.style.color = "black";
+    }
+
+    greenLink.onmouseover = function() {
+        colorText.style.color = "green";
+    }
+    greenLink.onmouseout = function() {
+        colorText.style.color = "black";
+    }
+
+    blueLink.onmouseover = function() {
+        colorText.style.color = "blue";
+    }
+    blueLink.onmouseout = function() {
+        colorText.style.color = "black";
+    }
+</script>
+</html>
